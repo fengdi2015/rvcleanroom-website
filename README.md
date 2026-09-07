@@ -1,6 +1,6 @@
 # RV-Cleanroom React site
 
-This is the modern framework edition of the RV-Cleanroom WordPress backup. It uses React 19, TypeScript, Vinext, and Vite.
+This is the modern framework edition of the RV-Cleanroom website. It uses React 19, TypeScript, Vinext, and Vite while preserving the current WordPress site's content and visual design.
 
 ## Development
 
@@ -15,6 +15,6 @@ npm run dev
 npm run build
 ```
 
-The 60 recovered pages are registered as framework routes. React handles internal navigation, the responsive menu, form behavior, metadata, and missing routes. Original WordPress media and visual styles are stored under `public/`.
+The 60 imported pages are registered as framework routes. React handles internal navigation, the responsive menu, form behavior, metadata, background images, and missing routes. Current WordPress styles and media URLs are retained for visual parity, with archived content available as a fallback when a live route is unavailable.
 
-The imported page data can be regenerated from the sibling `rvcleans-conversion/html` directory with `npm run import:wordpress`.
+The imported page data can be synchronized from `rvcleans.com`, with the sibling `rvcleans-conversion/html` directory as its fallback, by running `npm run import:wordpress`.
