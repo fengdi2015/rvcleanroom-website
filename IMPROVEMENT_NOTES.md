@@ -1,5 +1,23 @@
 # Brand and Search Visibility Improvements
 
+## Implementation status
+
+Implemented on the website:
+
+- Customer-facing **RV Cleanroom Systems** name in the header, metadata and new solution content
+- Organization JSON-LD with legal name, alternate names, contact details, locations, social profiles and industrial classification fields
+- Descriptive home-page metadata and canonical metadata for imported pages
+- Dedicated pages for ISO Class 5 cleanrooms, GMP cleanrooms, semiconductor cleanrooms and laminar flow hoods
+- Service JSON-LD on each new solution page
+- Home-page links to the new industrial solution pages
+- XML sitemap and robots metadata
+
+External follow-up still requires access to the relevant accounts:
+
+- Update email signatures and the LinkedIn company page
+- Claim or update ThomasNet, Alibaba, Global Sources and Made-in-China profiles
+- Request descriptive cleanroom-related anchor text from suitable partners and publishers
+
 ## 1. Clarify the external brand name
 
 Keep the legal company name unchanged, but use a clear, industry-specific name on customer-facing material.

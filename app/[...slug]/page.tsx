@@ -12,7 +12,18 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const page = findPage((await params).slug);
-  return page ? { title: page.title, description: page.description } : { title: 'Page not found | RV-Cleanroom' };
+  if (!page) return { title: 'Page not found' };
+  const title = page.title
+    .replace(/RV-Cleanroom(?: System)?(?: China)?/gi, 'RV Cleanroom Systems')
+    .replace(/RV-Clean\b/gi, 'RV Cleanroom Systems')
+    .replace(/\bRV Cleanroom\b(?! Systems)/gi, 'RV Cleanroom Systems')
+    .replace(/\s*\|\s*RV Cleanroom Systems\s*$/i, '');
+  return {
+    title,
+    description: page.description,
+    alternates: { canonical: page.route },
+    openGraph: { title, description: page.description, url: page.route },
+  };
 }
 
 export default async function ImportedRoute({ params }: PageProps) {
