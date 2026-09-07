@@ -15,9 +15,19 @@ function canonicalRoute(pathname: string) {
   return `${pathname.replace(/\/+$/, '')}/`;
 }
 
+function isTypographyStylesheet(href: string) {
+  return href.includes('fonts.googleapis.com/css') || /^\/fonts\/[^/]+\.css(?:\?|$)/.test(href);
+}
+
 function findLink(href: string, rel: string) {
   const absoluteHref = new URL(href, window.location.href).href;
   return Array.from(document.querySelectorAll<HTMLLinkElement>(`link[rel="${rel}"]`))
+    .find((link) => link.href === absoluteHref);
+}
+
+function findPersistentStyle(href: string) {
+  const absoluteHref = new URL(href, window.location.href).href;
+  return Array.from(document.querySelectorAll<HTMLLinkElement>('link[data-persistent-route-style]'))
     .find((link) => link.href === absoluteHref);
 }
 
@@ -44,7 +54,7 @@ async function preloadRouteStyles(pathname: string) {
     styleManifestPromise ??= fetch('/route-styles.json', { cache: 'no-store' })
       .then((response) => response.ok ? response.json() as Promise<StyleManifest> : {});
     const manifest = await styleManifestPromise;
-    const styles = manifest[route] ?? [];
+    const styles = (manifest[route] ?? []).filter((href) => !isTypographyStylesheet(href));
     await Promise.all(styles.map((href) => {
       if (findLink(href, 'stylesheet') || findLink(href, 'preload')) return Promise.resolve();
       const link = document.createElement('link');
@@ -66,12 +76,16 @@ async function activateRouteStyles(pathname: string) {
   const route = canonicalRoute(pathname);
   const styles = await preloadRouteStyles(route);
   await Promise.all(styles.map((href) => {
-    if (findLink(href, 'stylesheet')) return Promise.resolve();
+    const persistent = findPersistentStyle(href);
+    if (persistent) {
+      document.head.appendChild(persistent);
+      return Promise.resolve();
+    }
     const preload = findLink(href, 'preload');
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = href;
-    link.dataset.routeStyle = route;
+    link.dataset.persistentRouteStyle = route;
     document.head.appendChild(link);
     preload?.remove();
     return waitForLink(link, 2000);
@@ -83,8 +97,20 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     document.body.className = bodyClass;
+    styles.filter((href) => !isTypographyStylesheet(href)).forEach((href) => {
+      const persistent = findPersistentStyle(href);
+      if (persistent) {
+        document.head.appendChild(persistent);
+        return;
+      }
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      link.dataset.persistentRouteStyle = canonicalRoute(window.location.pathname);
+      document.head.appendChild(link);
+    });
     return () => { document.body.className = ''; };
-  }, [bodyClass]);
+  }, [bodyClass, styles]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -275,5 +301,6 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
     };
   }, [router]);
 
-  return <>{styles.map((href) => <link key={href} rel="stylesheet" href={href} />)}<div ref={rootRef} className="react-site-root" dangerouslySetInnerHTML={{ __html: html }} /></>;
+  const routeStyles = styles.filter((href) => !isTypographyStylesheet(href));
+  return <>{routeStyles.map((href) => <link key={href} rel="stylesheet" href={href} />)}<div ref={rootRef} className="react-site-root" dangerouslySetInnerHTML={{ __html: html }} /></>;
 }

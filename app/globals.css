@@ -1,8 +1,18 @@
+@import url('/fonts/5299c3033bb8a81d.css');
+@import url('/fonts/4e5dea717dd25770.css');
+@import url('/fonts/b2bbadf57abd6c6b.css');
+@import url('/fonts/0aded44bdcef0c51.css');
+@import url('/fonts/f30314f15ca78025.css');
+@import url('/fonts/2cabd1bcfec17023.css');
+
 :root { --background: #fff; --foreground: #222; --brand-red: #ed1c24; }
 * { box-sizing: border-box; }
 html { background: var(--background); color: var(--foreground); scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; background: var(--background); }
 .react-site-root { min-height: 100vh; }
+.react-site-root .man_logo_img {
+  background: url('/wp-content/uploads/2018/07/Untitled-1.png') center / contain no-repeat;
+}
 .elementor-invisible { visibility: visible !important; }
 .static-article { max-width: 1170px; margin: 0 auto; padding: 40px 24px; font-size: 1rem; line-height: 1.75; }
 .static-article img { max-width: 100%; height: auto; }
