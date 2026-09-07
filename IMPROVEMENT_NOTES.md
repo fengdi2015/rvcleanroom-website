@@ -6,6 +6,7 @@ Implemented on the website:
 
 - Customer-facing **RV Cleanroom Systems** name in the header, metadata and new solution content
 - Organization JSON-LD with legal name, alternate names, contact details, locations, social profiles and industrial classification fields
+- Organization expertise topics covering cleanroom design, HVAC, filtration, validation, contamination control and major application sectors
 - Descriptive home-page metadata and canonical metadata for imported pages
 - Dedicated pages for ISO Class 5 cleanrooms, GMP cleanrooms, semiconductor cleanrooms and laminar flow hoods
 - Service JSON-LD on each new solution page
