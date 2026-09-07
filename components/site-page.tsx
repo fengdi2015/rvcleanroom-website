@@ -115,9 +115,37 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
         ? value.toLocaleString('en-US')
         : String(value);
     });
+
+    root?.querySelectorAll<HTMLElement>('.eael-filter-gallery-control').forEach((controlGroup) => {
+      controlGroup.setAttribute('role', 'tablist');
+      controlGroup.setAttribute('aria-label', 'Product categories');
+      controlGroup.querySelectorAll<HTMLElement>('.control').forEach((control, index) => {
+        const active = control.classList.contains('active');
+        control.setAttribute('role', 'tab');
+        control.setAttribute('tabindex', active || index === 0 ? '0' : '-1');
+        control.setAttribute('aria-selected', String(active));
+      });
+    });
   }, [html]);
 
   useEffect(() => {
+    const filterGallery = (control: HTMLElement) => {
+      const wrapper = control.closest<HTMLElement>('.eael-filter-gallery-wrapper');
+      if (!wrapper) return;
+      const filter = control.dataset.filter ?? '*';
+
+      wrapper.querySelectorAll<HTMLElement>('.eael-filter-gallery-control .control').forEach((item) => {
+        const active = item === control;
+        item.classList.toggle('active', active);
+        item.setAttribute('aria-selected', String(active));
+        item.setAttribute('tabindex', active ? '0' : '-1');
+      });
+
+      wrapper.querySelectorAll<HTMLElement>('.eael-filterable-gallery-item-wrap').forEach((item) => {
+        item.hidden = filter !== '*' && !item.matches(filter);
+      });
+    };
+
     const toggleNavigation = (menuButton: HTMLElement) => {
       const navigation = menuButton.nextElementSibling instanceof HTMLElement
         ? menuButton.nextElementSibling
@@ -155,6 +183,13 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
 
     const onClick = (event: MouseEvent) => {
       const target = event.target as Element | null;
+      const galleryControl = target?.closest<HTMLElement>('.eael-filter-gallery-control .control');
+      if (galleryControl) {
+        event.preventDefault();
+        filterGallery(galleryControl);
+        return;
+      }
+
       const menuButton = target?.closest<HTMLElement>('.hfe-nav-menu__toggle, .menu-toggle');
       if (menuButton) {
         event.preventDefault();
@@ -191,6 +226,21 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
 
     const onKeyDown = (event: KeyboardEvent) => {
       const target = event.target as Element | null;
+      const galleryControl = target?.closest<HTMLElement>('.eael-filter-gallery-control .control');
+      if (galleryControl && (event.key === 'Enter' || event.key === ' ' || event.key === 'Space')) {
+        event.preventDefault();
+        filterGallery(galleryControl);
+        return;
+      }
+      if (galleryControl && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
+        event.preventDefault();
+        const controls = Array.from(galleryControl.parentElement?.querySelectorAll<HTMLElement>('.control') ?? []);
+        const direction = event.key === 'ArrowRight' ? 1 : -1;
+        const next = controls[(controls.indexOf(galleryControl) + direction + controls.length) % controls.length];
+        next?.focus();
+        if (next) filterGallery(next);
+        return;
+      }
       const menuButton = target?.closest<HTMLElement>('.hfe-nav-menu__toggle, .menu-toggle');
       if (menuButton && (event.key === 'Enter' || event.key === ' ' || event.key === 'Space')) {
         event.preventDefault();

@@ -24,6 +24,85 @@ body { margin: 0; min-width: 320px; background: var(--background); }
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
 }
+
+/* React replacement for the original Elementor filterable gallery script. */
+.react-site-root .eael-filter-gallery-control ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.react-site-root .eael-filter-gallery-control .control {
+  width: auto;
+  margin: 0;
+  padding: 9px 13px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  color: #252525;
+  background: transparent;
+  cursor: pointer;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease;
+}
+
+.react-site-root .eael-filter-gallery-control .control:hover,
+.react-site-root .eael-filter-gallery-control .control.active {
+  color: #e80000;
+  background: #fff;
+}
+
+.react-site-root .eael-filter-gallery-control .control:focus-visible {
+  color: #e80000;
+  border-color: #e80000;
+  background: #fff;
+  outline: none;
+}
+
+.react-site-root .eael-filter-gallery-container.masonry {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  height: auto !important;
+}
+
+.react-site-root .eael-filter-gallery-container .eael-filterable-gallery-item-wrap {
+  position: static !important;
+  inset: auto !important;
+  width: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+.react-site-root .eael-filter-gallery-container .eael-filterable-gallery-item-wrap[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 1024px) {
+  .react-site-root .eael-filter-gallery-container.masonry {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .react-site-root .eael-filter-gallery-control ul {
+    gap: 2px;
+    margin-bottom: 18px;
+  }
+
+  .react-site-root .eael-filter-gallery-control .control {
+    flex: 0 0 auto;
+    padding: 8px 4px;
+    font-size: 10.5px;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+}
 .man_news.owl-carousel .man_news_grid_item { min-width: 0; }
 .man_news.owl-carousel .man_news_item_img img {
   display: block;
