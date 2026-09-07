@@ -87,7 +87,8 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
   }, [bodyClass]);
 
   useEffect(() => {
-    rootRef.current?.querySelectorAll<HTMLElement>('[data-image]').forEach((element) => {
+    const root = rootRef.current;
+    root?.querySelectorAll<HTMLElement>('[data-image]').forEach((element) => {
       const image = element.dataset.image;
       if (!image) return;
       element.style.backgroundImage = `url("${image.replaceAll('"', '%22')}")`;
@@ -96,6 +97,23 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
       if (element.dataset.position) element.style.backgroundPosition = element.dataset.position;
       if (element.dataset.attachment) element.style.backgroundAttachment = element.dataset.attachment;
       if (element.dataset.size) element.style.backgroundSize = element.dataset.size;
+    });
+
+    const sectionAnchors = new Map([
+      ['MEDIA CENTER', 'media-center'],
+      ['OUR CLIENTS', 'our-clients'],
+    ]);
+    root?.querySelectorAll<HTMLElement>('h1, h2, h3, h4, h5, h6').forEach((heading) => {
+      const id = sectionAnchors.get(heading.textContent?.trim().toUpperCase() ?? '');
+      if (id) heading.closest<HTMLElement>('section')?.setAttribute('id', id);
+    });
+
+    root?.querySelectorAll<HTMLElement>('[data-to-value]').forEach((counter) => {
+      const value = Number(counter.dataset.toValue);
+      if (!Number.isFinite(value)) return;
+      counter.textContent = counter.dataset.delimiter
+        ? value.toLocaleString('en-US')
+        : String(value);
     });
   }, [html]);
 
