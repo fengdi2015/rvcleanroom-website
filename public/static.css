@@ -1,0 +1,9 @@
+/* Static export compatibility. Original theme and Elementor styles are preserved. */
+.elementor-invisible{visibility:visible!important}
+.static-article{max-width:1170px;margin:0 auto;padding:40px 24px;font-size:16px;line-height:1.75}
+.static-article img{max-width:100%;height:auto}.static-form-note{font-size:14px;line-height:1.5;margin-top:16px}
+.static-products{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+.static-search-results{background:white;color:#222;padding:24px;border:1px solid #ddd;max-height:60vh;overflow:auto}
+.static-search-results a{display:block;padding:10px;color:#176ca6}
+.static-contact-form{display:grid;gap:16px}.static-contact-form label{display:block;font-size:16px}.static-contact-form input,.static-contact-form textarea{display:block;width:100%;padding:12px;border:1px solid #bbb;box-sizing:border-box}.static-contact-form button{background:#d71920;color:white;border:0;padding:14px 20px;cursor:pointer}.static-gallery{display:grid;gap:20px}.static-gallery img{width:100%;height:auto}.sm-menu-links{list-style:none;padding-left:0}.sm-menu-links a{display:block;padding:8px 0}
+@media(max-width:600px){.elementor-widget-text-editor{overflow-wrap:anywhere}.static-contact-form{padding:10px}.elementor-widget:has(.static-contact-form){margin:0!important;width:100%!important}.home .elementor-widget-heading h1{font-size:clamp(28px,7vw,42px)!important;line-height:1.25!important}}

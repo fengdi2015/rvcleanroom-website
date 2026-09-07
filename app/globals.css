@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+
+:root { --background: #fff; --foreground: #222; --brand-red: #ed1c24; }
+* { box-sizing: border-box; }
+html { background: var(--background); color: var(--foreground); scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; background: var(--background); }
+.react-site-root { min-height: 100vh; }
+.elementor-invisible { visibility: visible !important; }
+.static-article { max-width: 1170px; margin: 0 auto; padding: 40px 24px; font-size: 1rem; line-height: 1.75; }
+.static-article img { max-width: 100%; height: auto; }
+.static-contact-form { display: grid; gap: 16px; }
+.static-contact-form label { display: block; font-size: 1rem; }
+.static-contact-form input, .static-contact-form textarea { display: block; width: 100%; padding: 12px; border: 1px solid #b9b9b9; background: #fff; color: #222; }
+.static-contact-form button { border: 0; background: var(--brand-red); color: #fff; padding: 14px 20px; cursor: pointer; }
+.static-form-note { margin-top: 8px; font-size: .875rem; line-height: 1.5; }
+.static-products { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.static-gallery { display: grid; gap: 20px; }
+.static-gallery img { width: 100%; height: auto; }
+.sm-menu-links { list-style: none; padding-left: 0; }
+.sm-menu-links a { display: block; padding: 8px 0; }
+@media (max-width: 600px) {
+  .elementor-widget-text-editor { overflow-wrap: anywhere; }
+  .static-contact-form { padding: 10px; }
+  .home .elementor-widget-heading h1 { font-size: clamp(28px, 7vw, 42px) !important; line-height: 1.25 !important; }
+}
