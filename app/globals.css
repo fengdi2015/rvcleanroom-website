@@ -191,6 +191,26 @@ body { margin: 0; min-width: 320px; background: var(--background); }
   display: none !important;
 }
 
+/* React replacement for the original Elementor hosted-video lightbox. */
+.react-site-root .elementor-custom-embed-image-overlay[data-elementor-lightbox] {
+  cursor: pointer;
+}
+
+.react-site-root .react-hosted-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 512 / 347;
+  border: 0;
+  background: #000;
+  object-fit: contain;
+}
+
+.react-site-root .react-hosted-video:focus-visible {
+  outline: 3px solid var(--brand-red);
+  outline-offset: 3px;
+}
+
 @media (max-width: 1024px) {
   .industry-solution-links__grid { grid-template-columns: repeat(2, 1fr); }
   .industrial-header { align-items: flex-start; }

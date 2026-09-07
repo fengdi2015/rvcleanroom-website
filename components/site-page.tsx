@@ -155,6 +155,36 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
   }, [html]);
 
   useEffect(() => {
+    const playHostedVideo = (overlay: HTMLElement) => {
+      const wrapper = overlay.closest<HTMLElement>('.elementor-wrapper');
+      if (!wrapper || wrapper.querySelector('video')) return;
+
+      let source = '/wp-content/uploads/2022/03/cleanroom_video.mp4';
+      const settings = overlay.dataset.elementorLightbox;
+      if (settings) {
+        try {
+          const parsed = JSON.parse(settings) as { url?: string };
+          if (parsed.url) source = new URL(parsed.url, window.location.href).pathname;
+        } catch {
+          // The local recovered video is the safe fallback for malformed legacy data.
+        }
+      }
+
+      const poster = overlay.querySelector<HTMLImageElement>('img')?.src;
+      const video = document.createElement('video');
+      video.className = 'react-hosted-video';
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.preload = 'metadata';
+      video.src = source;
+      if (poster) video.poster = poster;
+      video.setAttribute('aria-label', 'RV Cleanroom project video');
+      overlay.replaceWith(video);
+      video.focus();
+      void video.play().catch(() => undefined);
+    };
+
     const filterGallery = (control: HTMLElement) => {
       const wrapper = control.closest<HTMLElement>('.eael-filter-gallery-wrapper');
       if (!wrapper) return;
@@ -209,6 +239,13 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
 
     const onClick = (event: MouseEvent) => {
       const target = event.target as Element | null;
+      const videoOverlay = target?.closest<HTMLElement>('.elementor-custom-embed-image-overlay[data-elementor-lightbox]');
+      if (videoOverlay) {
+        event.preventDefault();
+        playHostedVideo(videoOverlay);
+        return;
+      }
+
       const galleryControl = target?.closest<HTMLElement>('.eael-filter-gallery-control .control');
       if (galleryControl) {
         event.preventDefault();
@@ -252,6 +289,13 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
 
     const onKeyDown = (event: KeyboardEvent) => {
       const target = event.target as Element | null;
+      const videoOverlay = target?.closest<HTMLElement>('.elementor-custom-embed-image-overlay[data-elementor-lightbox]');
+      if (videoOverlay && (event.key === 'Enter' || event.key === ' ' || event.key === 'Space')) {
+        event.preventDefault();
+        playHostedVideo(videoOverlay);
+        return;
+      }
+
       const galleryControl = target?.closest<HTMLElement>('.eael-filter-gallery-control .control');
       if (galleryControl && (event.key === 'Enter' || event.key === ' ' || event.key === 'Space')) {
         event.preventDefault();
