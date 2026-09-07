@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
 type SitePageProps = { bodyClass: string; html: string; styles: string[] };
@@ -81,7 +81,7 @@ async function activateRouteStyles(pathname: string) {
 export function SitePage({ bodyClass, html, styles }: SitePageProps) {
   const router = useRouter();
   const rootRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.body.className = bodyClass;
     return () => { document.body.className = ''; };
   }, [bodyClass]);
