@@ -5,6 +5,79 @@ import { useRouter } from 'next/navigation';
 
 type SitePageProps = { bodyClass: string; html: string; styles: string[] };
 
+type StyleManifest = Record<string, string[]>;
+
+let styleManifestPromise: Promise<StyleManifest> | undefined;
+const routeStylePreloads = new Map<string, Promise<string[]>>();
+
+function canonicalRoute(pathname: string) {
+  if (pathname === '/') return pathname;
+  return `${pathname.replace(/\/+$/, '')}/`;
+}
+
+function findLink(href: string, rel: string) {
+  const absoluteHref = new URL(href, window.location.href).href;
+  return Array.from(document.querySelectorAll<HTMLLinkElement>(`link[rel="${rel}"]`))
+    .find((link) => link.href === absoluteHref);
+}
+
+function waitForLink(link: HTMLLinkElement, timeout = 4000) {
+  return new Promise<void>((resolve) => {
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      resolve();
+    };
+    link.addEventListener('load', finish, { once: true });
+    link.addEventListener('error', finish, { once: true });
+    window.setTimeout(finish, timeout);
+  });
+}
+
+async function preloadRouteStyles(pathname: string) {
+  const route = canonicalRoute(pathname);
+  const existing = routeStylePreloads.get(route);
+  if (existing) return existing;
+
+  const preload = (async () => {
+    styleManifestPromise ??= fetch('/route-styles.json', { cache: 'no-store' })
+      .then((response) => response.ok ? response.json() as Promise<StyleManifest> : {});
+    const manifest = await styleManifestPromise;
+    const styles = manifest[route] ?? [];
+    await Promise.all(styles.map((href) => {
+      if (findLink(href, 'stylesheet') || findLink(href, 'preload')) return Promise.resolve();
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'style';
+      link.href = href;
+      link.dataset.routeStylePreload = route;
+      document.head.appendChild(link);
+      return waitForLink(link);
+    }));
+    return styles;
+  })();
+
+  routeStylePreloads.set(route, preload);
+  return preload;
+}
+
+async function activateRouteStyles(pathname: string) {
+  const route = canonicalRoute(pathname);
+  const styles = await preloadRouteStyles(route);
+  await Promise.all(styles.map((href) => {
+    if (findLink(href, 'stylesheet')) return Promise.resolve();
+    const preload = findLink(href, 'preload');
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    link.dataset.routeStyle = route;
+    document.head.appendChild(link);
+    preload?.remove();
+    return waitForLink(link, 2000);
+  }));
+}
+
 export function SitePage({ bodyClass, html, styles }: SitePageProps) {
   const router = useRouter();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -49,6 +122,19 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
       });
     };
 
+    const internalUrl = (target: Element | null) => {
+      const link = target?.closest<HTMLAnchorElement>('a[href]');
+      if (!link || link.target === '_blank') return null;
+      const url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin || /\.(?:pdf|jpe?g|png|gif|webp|svg|mp4)$/i.test(url.pathname)) return null;
+      return { link, url };
+    };
+
+    const onNavigationIntent = (event: PointerEvent | FocusEvent) => {
+      const destination = internalUrl(event.target as Element | null);
+      if (destination) void preloadRouteStyles(destination.url.pathname);
+    };
+
     const onClick = (event: MouseEvent) => {
       const target = event.target as Element | null;
       const menuButton = target?.closest<HTMLElement>('.hfe-nav-menu__toggle, .menu-toggle');
@@ -75,13 +161,14 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
         }
       }
 
-      const link = target?.closest<HTMLAnchorElement>('a[href]');
-      if (!link || link.target === '_blank' || event.metaKey || event.ctrlKey || event.shiftKey) return;
-      const url = new URL(link.href, window.location.href);
-      if (url.origin !== window.location.origin || /\.(?:pdf|jpe?g|png|gif|webp|svg|mp4)$/i.test(url.pathname)) return;
+      const destination = internalUrl(target);
+      if (!destination || event.metaKey || event.ctrlKey || event.shiftKey) return;
+      const { url } = destination;
       event.preventDefault();
       closeNavigation();
-      router.push(`${url.pathname}${url.search}${url.hash}`);
+      void activateRouteStyles(url.pathname)
+        .catch(() => undefined)
+        .then(() => router.push(`${url.pathname}${url.search}${url.hash}`));
     };
 
     const onKeyDown = (event: KeyboardEvent) => {
@@ -106,10 +193,14 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
       });
       window.location.href = `mailto:info@rvcleans.com?subject=${encodeURIComponent('Website inquiry')}&body=${encodeURIComponent(lines.join('\n\n'))}`;
     };
+    document.addEventListener('pointerover', onNavigationIntent);
+    document.addEventListener('focusin', onNavigationIntent);
     document.addEventListener('click', onClick);
     document.addEventListener('keydown', onKeyDown);
     document.addEventListener('submit', onSubmit);
     return () => {
+      document.removeEventListener('pointerover', onNavigationIntent);
+      document.removeEventListener('focusin', onNavigationIntent);
       document.removeEventListener('click', onClick);
       document.removeEventListener('keydown', onKeyDown);
       document.removeEventListener('submit', onSubmit);

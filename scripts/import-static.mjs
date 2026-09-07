@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const sourceRoot = path.resolve('../rvcleans-conversion/html');
 const outputFile = path.resolve('app/_data/pages.json');
+const styleManifestFile = path.resolve('public/route-styles.json');
 const requestedLiveRoutes = process.env.LIVE_ROUTES
   ? new Set(process.env.LIVE_ROUTES.split(',').map((route) => route.trim()))
   : null;
@@ -118,5 +119,10 @@ for (const file of await walk(sourceRoot)) {
 pages.sort((a, b) => a.route.localeCompare(b.route));
 await mkdir(path.dirname(outputFile), { recursive: true });
 await writeFile(outputFile, `${JSON.stringify(pages)}\n`, 'utf8');
+await writeFile(
+  styleManifestFile,
+  `${JSON.stringify(Object.fromEntries(pages.map((page) => [page.route, page.styles])))}\n`,
+  'utf8',
+);
 const liveCount = pages.filter((page) => page.source === 'live').length;
 console.log(`Imported ${pages.length} routed pages (${liveCount} live, ${pages.length - liveCount} archived fallbacks) into ${outputFile}`);
