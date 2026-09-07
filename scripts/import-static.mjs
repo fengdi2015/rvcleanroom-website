@@ -6,6 +6,9 @@ const outputFile = path.resolve('app/_data/pages.json');
 const requestedLiveRoutes = process.env.LIVE_ROUTES
   ? new Set(process.env.LIVE_ROUTES.split(',').map((route) => route.trim()))
   : null;
+const archiveOnlyRoutes = new Set([
+  '/about-us/',
+]);
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -64,7 +67,7 @@ for (const file of await walk(sourceRoot)) {
   const route = cleanRoute(file);
   let html = await readFile(file, 'utf8');
   let source = 'archive';
-  if (!requestedLiveRoutes || requestedLiveRoutes.has(route)) {
+  if (!archiveOnlyRoutes.has(route) && (!requestedLiveRoutes || requestedLiveRoutes.has(route))) {
     try {
       const response = await fetch(`https://rvcleans.com${route}`, {
         headers: { 'user-agent': 'Mozilla/5.0 (compatible; RVCS-React-Migration/1.0)' },
