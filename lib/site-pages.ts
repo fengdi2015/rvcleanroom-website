@@ -37,22 +37,14 @@ const manufacturingSummary = `
 </section>`;
 
 function enrichPage(page: ImportedPage) {
-  let html = page.html.replace(
-    /(<a\s+class=["']man_logo["'][^>]*>)([\s\S]*?)(<\/a>)/gi,
-    '$1$2<span class="rv-brand-name">RV Cleanroom Systems</span>$3',
-  );
-  html = html.replace(/(<a\s+class=["']man_logo["'][^>]*)(>)/gi, '$1 aria-label="RV Cleanroom Systems"$2');
-  html = html
+  let html = page.html
+    .replace(/<header\b[\s\S]*?<\/header>/i, '')
     .replaceAll('ISO $ GMP Certified Cleanroom Manufacturer', 'ISO &amp; GMP Certified Cleanroom Manufacturer')
     .replaceAll('About RV-Cleanroom', 'About RV Cleanroom Systems')
     .replaceAll('RV-Cleanroom System company design, build and validate', 'RV Cleanroom Systems designs, builds and validates')
     .replaceAll('INDUSTRIES RV-CLEANROOM SERVES', 'INDUSTRIES RV CLEANROOM SYSTEMS SERVES')
     .replaceAll('RV-Cleanroom is a designer and manufacturer', 'RV Cleanroom Systems is a designer and manufacturer');
   if (page.route === '/') {
-    html = html.replace(
-      /(<li id="menu-item-3151"[^>]*><a href="\/products\/"[^>]*>Products<\/a><\/li>)/i,
-      '<li id="menu-item-manufacturing" class="menu-item menu-item-type-post_type menu-item-object-page parent hfe-creative-menu"><a href="/manufacturing/" class="hfe-menu-item">Manufacturing</a></li>$1',
-    );
     html = html.replace(/<footer\b/i, `${manufacturingSummary}${industryLinks}<footer`);
   }
   if (page.route === '/about-us/') html = html.replace(/<footer\b/i, `${manufacturingSummary}<footer`);

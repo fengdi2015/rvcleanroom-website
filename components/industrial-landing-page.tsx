@@ -30,22 +30,6 @@ export function IndustrialLandingPage({ solution }: { solution: IndustrialSoluti
   return (
     <div className="industrial-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
-      <header className="industrial-header">
-        <a className="industrial-brand" href="/" aria-label="RV Cleanroom Systems home">
-          <Image src="/wp-content/uploads/2018/07/Untitled-1.png" alt="RV Cleanroom Systems" width={676} height={364} priority />
-          <span>RV Cleanroom Systems</span>
-        </a>
-        <nav aria-label="Primary navigation">
-          <a href="/">Home</a>
-          <a href="/about-us/">About Us</a>
-          <a href="/manufacturing/">Manufacturing</a>
-          <a href="/services/">Services</a>
-          <a href="/products/">Products</a>
-          <a href="/cleanroom-project/">Projects</a>
-          <a className="industrial-header__cta" href="/contact/">Request a Quote</a>
-        </nav>
-      </header>
-
       <main>
         <section className="industrial-hero">
           <div className="industrial-shell industrial-hero__grid">

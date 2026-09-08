@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SiteHeader } from '@/components/site-header';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -122,7 +123,10 @@ export default function RootLayout({
         <link rel="preload" href="/fonts/d022c72c8821bd448e4d.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
         <link rel="preload" href="/wp-content/uploads/2018/07/Untitled-1.png" as="image" />
       </head>
-      <body>{children}</body>
+      <body>
+        <SiteHeader />
+        {children}
+      </body>
     </html>
   );
 }

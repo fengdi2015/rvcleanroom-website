@@ -239,6 +239,7 @@ export function SitePage({ bodyClass, html, styles }: SitePageProps) {
 
     const onClick = (event: MouseEvent) => {
       const target = event.target as Element | null;
+      if (target?.closest('[data-rvcs-header]')) return;
       const videoOverlay = target?.closest<HTMLElement>('.elementor-custom-embed-image-overlay[data-elementor-lightbox]');
       if (videoOverlay) {
         event.preventDefault();
