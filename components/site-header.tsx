@@ -28,10 +28,13 @@ export function SiteHeader() {
       <div className="rvcs-header__inner">
         <a className="rvcs-header__brand" href="/" aria-label="RV Cleanroom Systems home">
           <Image src="/wp-content/uploads/2018/07/Untitled-1.png" alt="RV Cleanroom Systems" width={338} height={182} priority />
-          <span>RV Cleanroom Systems</span>
+          <span className="rvcs-header__brand-copy">
+            <strong>RV Cleanroom</strong>
+            <small>Systems</small>
+          </span>
         </a>
         <button
-          className="rvcs-header__toggle"
+          className={open ? 'rvcs-header__toggle rvcs-header__toggle--open' : 'rvcs-header__toggle'}
           type="button"
           aria-expanded={open}
           aria-controls="site-navigation"
@@ -46,7 +49,9 @@ export function SiteHeader() {
           {navigation.map((item) => (
             <a key={item.href} href={item.href} aria-current={(item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)) ? 'page' : undefined}>{item.label}</a>
           ))}
-          <a className="rvcs-header__cta" href="/contact/" aria-current={pathname === '/contact/' ? 'page' : undefined}>Request a Quote</a>
+          <a className="rvcs-header__cta" href="/contact/" aria-current={pathname === '/contact/' ? 'page' : undefined}>
+            Request a Quote <span aria-hidden="true">→</span>
+          </a>
         </nav>
       </div>
     </header>
