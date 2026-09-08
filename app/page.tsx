@@ -1,8 +1,5 @@
-import { SitePage } from '@/components/site-page';
-import { findPage } from '@/lib/site-pages';
+import { HomePage } from '@/components/home-page';
 
 export default function Home() {
-  const page = findPage();
-  if (!page) return null;
-  return <SitePage bodyClass={page.bodyClass} html={page.html} styles={page.styles} />;
+  return <HomePage />;
 }

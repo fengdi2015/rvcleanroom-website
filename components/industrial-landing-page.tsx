@@ -93,14 +93,6 @@ export function IndustrialLandingPage({ solution }: { solution: IndustrialSoluti
         </section>
       </main>
 
-      <footer className="industrial-footer">
-        <div className="industrial-shell">
-          <strong>RV Cleanroom Systems</strong>
-          <span>RV-Cleanroom System Co., Ltd.</span>
-          <a href="mailto:sales@rvcleans.com">sales@rvcleans.com</a>
-          <a href="tel:+862151097860">+86 21 5109 7860</a>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -267,13 +267,6 @@ export function ManufacturingPage() {
         </section>
       </main>
 
-      <footer className="industrial-footer">
-        <div className="industrial-shell">
-          <strong>RV-Cleanroom System Co., Ltd.</strong>
-          <span>Cleanroom panel manufacturer and turnkey cleanroom supplier in China</span>
-          <a href="mailto:sales@rvcleans.com">sales@rvcleans.com</a>
-        </div>
-      </footer>
     </div>
   );
 }
