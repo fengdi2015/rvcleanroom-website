@@ -48,10 +48,6 @@ function enrichPage(page: ImportedPage) {
     .replaceAll('RV-Cleanroom System company design, build and validate', 'RV Cleanroom Systems designs, builds and validates')
     .replaceAll('INDUSTRIES RV-CLEANROOM SERVES', 'INDUSTRIES RV CLEANROOM SYSTEMS SERVES')
     .replaceAll('RV-Cleanroom is a designer and manufacturer', 'RV Cleanroom Systems is a designer and manufacturer');
-  html = html.replace(
-    /(<li id="menu-item-3151"[^>]*><a href="\/products\/"[^>]*>Products<\/a><\/li>)/i,
-    '<li id="menu-item-manufacturing" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-manufacturing"><a href="/manufacturing/">Manufacturing</a></li>$1',
-  );
   if (page.route === '/') html = html.replace(/<footer\b/i, `${manufacturingSummary}${industryLinks}<footer`);
   if (page.route === '/about-us/') html = html.replace(/<footer\b/i, `${manufacturingSummary}<footer`);
   return { ...page, html };
