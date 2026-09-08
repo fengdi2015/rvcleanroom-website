@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Cleanroom Panel Manufacturing in China | RV Cleanroom Systems',
     description: 'Integrated cleanroom panel production for bulk engineering orders, repeat supply programs and OEM/ODM requirements.',
     url: '/manufacturing/',
-    images: [{ url: '/wp-content/uploads/2022/03/FACTORY1.jpg', alt: 'RVCS cleanroom panel factory' }],
+    images: [{ url: '/wp-content/uploads/2026/09/rvcs-suzhou-cleanroom-factory.jpeg', alt: 'RVCS Suzhou cleanroom manufacturing factory in China' }],
   },
 };
 

@@ -1,7 +1,34 @@
 /* oxlint-disable next/no-html-link-for-pages -- native navigation avoids ignored vinext client-link clicks */
 import Image from 'next/image';
 
-const factoryImage = '/wp-content/uploads/2022/03/FACTORY1.jpg';
+const factoryImage = '/wp-content/uploads/2026/09/rvcs-suzhou-cleanroom-factory.jpeg';
+
+const factoryGallery = [
+  {
+    src: '/wp-content/uploads/2026/09/rvcs-factory-operations-building.jpeg',
+    alt: 'RVCS factory operations building in Suzhou China',
+    title: 'Factory operations building',
+    text: 'The Suzhou site brings manufacturing, project coordination and production support together at one location.',
+    width: 688,
+    height: 477,
+  },
+  {
+    src: '/wp-content/uploads/2026/09/cleanroom-panels-ready-for-delivery.jpeg',
+    alt: 'Packaged cleanroom sandwich panels staged outside the RVCS factory for project delivery',
+    title: 'Bulk panels prepared for delivery',
+    text: 'Packaged panel batches demonstrate the site’s ability to organize volume production and staged project shipments.',
+    width: 682,
+    height: 439,
+  },
+  {
+    src: '/wp-content/uploads/2026/09/rvcs-factory-reception.jpeg',
+    alt: 'RVCS Suzhou factory reception and administration entrance',
+    title: 'On-site project administration',
+    text: 'Factory administration supports production scheduling, order coordination and communication with project customers.',
+    width: 624,
+    height: 477,
+  },
+];
 
 const productFamilies = [
   {
@@ -67,7 +94,25 @@ export function ManufacturingPage() {
         name: 'Cleanroom Panel Manufacturing in China | RV Cleanroom Systems',
         description: 'RVCS manufactures cleanroom sandwich panels and supporting purification materials through integrated production lines for bulk projects, repeat supply and OEM/ODM requirements.',
         about: { '@id': 'https://rvcleans.com/#organization' },
+        primaryImageOfPage: { '@id': 'https://rvcleans.com/manufacturing/#primaryimage' },
+        image: [
+          { '@id': 'https://rvcleans.com/manufacturing/#primaryimage' },
+          ...factoryGallery.map((_, index) => ({ '@id': `https://rvcleans.com/manufacturing/#factory-image-${index + 1}` })),
+        ],
       },
+      {
+        '@type': 'ImageObject',
+        '@id': 'https://rvcleans.com/manufacturing/#primaryimage',
+        contentUrl: `https://rvcleans.com${factoryImage}`,
+        caption: 'RVCS Suzhou cleanroom manufacturing factory in China',
+        representativeOfPage: true,
+      },
+      ...factoryGallery.map((image, index) => ({
+        '@type': 'ImageObject',
+        '@id': `https://rvcleans.com/manufacturing/#factory-image-${index + 1}`,
+        contentUrl: `https://rvcleans.com${image.src}`,
+        caption: image.title,
+      })),
       {
         '@type': 'OfferCatalog',
         '@id': 'https://rvcleans.com/manufacturing/#catalog',
@@ -124,7 +169,7 @@ export function ManufacturingPage() {
                 <a className="industrial-text-link" href="/products/">View cleanroom products →</a>
               </div>
             </div>
-            <Image src={factoryImage} alt="RVCS cleanroom panel manufacturing factory in China" width={1600} height={800} priority />
+            <Image src={factoryImage} alt="RVCS Suzhou cleanroom manufacturing factory in China" width={624} height={436} priority />
           </div>
         </section>
 
@@ -136,6 +181,22 @@ export function ManufacturingPage() {
           <div className="manufacturing-copy">
             <p>RV Cleanroom Systems manufactures cleanroom sandwich panels and supporting purification materials for pharmaceutical, medical, food-processing, electronics, semiconductor and laboratory facilities. Independent product development and full-process manufacturing allow the factory to coordinate panel systems, supporting components and project delivery from one supply base.</p>
             <p>The factory combines advanced automatic equipment with manual production capability. This structure supports repeatable series production and the detailed fabrication required at interfaces, corners, penetrations and other project-specific locations. RVCS can schedule large-volume bulk orders, phased deliveries and OEM/ODM production without presenting itself as a custom-only workshop.</p>
+          </div>
+        </section>
+
+        <section className="industrial-shell manufacturing-gallery" aria-labelledby="factory-gallery-title">
+          <p className="industrial-eyebrow">Factory and delivery evidence</p>
+          <h2 id="factory-gallery-title">Suzhou manufacturing facilities and project supply</h2>
+          <div className="manufacturing-gallery__grid">
+            {factoryGallery.map((image) => (
+              <figure key={image.src}>
+                <Image src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="(max-width: 760px) 100vw, 33vw" />
+                <figcaption>
+                  <strong>{image.title}</strong>
+                  <span>{image.text}</span>
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </section>
 
