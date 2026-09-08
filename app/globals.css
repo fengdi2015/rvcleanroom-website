@@ -28,6 +28,26 @@ body { margin: 0; min-width: 320px; background: var(--background); }
   letter-spacing: .02em;
   white-space: nowrap;
 }
+.react-site-root #menu-item-manufacturing {
+  display: block !important;
+  width: auto !important;
+  min-width: 128px;
+  height: auto !important;
+  min-height: 46px;
+  opacity: 1 !important;
+  visibility: visible !important;
+  overflow: visible !important;
+}
+.react-site-root #menu-item-manufacturing > a {
+  display: flex !important;
+  align-items: center;
+  width: auto !important;
+  min-width: 128px;
+  height: 46px !important;
+  padding-inline: 14px;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
 .elementor-invisible { visibility: visible !important; }
 .static-article { max-width: 1170px; margin: 0 auto; padding: 40px 24px; font-size: 1rem; line-height: 1.75; }
 .static-article img { max-width: 100%; height: auto; }
