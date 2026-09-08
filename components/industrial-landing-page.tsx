@@ -1,5 +1,5 @@
+/* oxlint-disable next/no-html-link-for-pages -- native navigation avoids ignored vinext client-link clicks */
 import Image from 'next/image';
-import Link from 'next/link';
 
 export type IndustrialSolution = {
   slug: string;
@@ -31,18 +31,18 @@ export function IndustrialLandingPage({ solution }: { solution: IndustrialSoluti
     <div className="industrial-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <header className="industrial-header">
-        <Link className="industrial-brand" href="/" aria-label="RV Cleanroom Systems home">
+        <a className="industrial-brand" href="/" aria-label="RV Cleanroom Systems home">
           <Image src="/wp-content/uploads/2018/07/Untitled-1.png" alt="RV Cleanroom Systems" width={676} height={364} priority />
           <span>RV Cleanroom Systems</span>
-        </Link>
+        </a>
         <nav aria-label="Primary navigation">
-          <Link href="/">Home</Link>
-          <Link href="/about-us/">About Us</Link>
-          <Link href="/manufacturing/">Manufacturing</Link>
-          <Link href="/services/">Services</Link>
-          <Link href="/products/">Products</Link>
-          <Link href="/cleanroom-project/">Projects</Link>
-          <Link className="industrial-header__cta" href="/contact/">Request a Quote</Link>
+          <a href="/">Home</a>
+          <a href="/about-us/">About Us</a>
+          <a href="/manufacturing/">Manufacturing</a>
+          <a href="/services/">Services</a>
+          <a href="/products/">Products</a>
+          <a href="/cleanroom-project/">Projects</a>
+          <a className="industrial-header__cta" href="/contact/">Request a Quote</a>
         </nav>
       </header>
 
@@ -54,8 +54,8 @@ export function IndustrialLandingPage({ solution }: { solution: IndustrialSoluti
               <h1>{solution.title}</h1>
               <p className="industrial-lead">{solution.description}</p>
               <div className="industrial-actions">
-                <Link className="industrial-button" href="/contact/">Discuss Your Project</Link>
-                <Link className="industrial-text-link" href="/services/">View engineering services →</Link>
+                <a className="industrial-button" href="/contact/">Discuss Your Project</a>
+                <a className="industrial-text-link" href="/services/">View engineering services →</a>
               </div>
             </div>
             <Image src={solution.image} alt={solution.imageAlt} width={1200} height={800} priority />
@@ -104,7 +104,7 @@ export function IndustrialLandingPage({ solution }: { solution: IndustrialSoluti
               <p className="industrial-eyebrow">Start with your requirements</p>
               <h2>Plan your cleanroom with RV Cleanroom Systems</h2>
             </div>
-            <Link className="industrial-button" href="/contact/">Request a Consultation</Link>
+            <a className="industrial-button" href="/contact/">Request a Consultation</a>
           </div>
         </section>
       </main>

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+/* oxlint-disable next/no-html-link-for-pages -- native navigation avoids ignored vinext client-link clicks */
 import Image from 'next/image';
 
 const factoryImage = '/wp-content/uploads/2022/03/FACTORY1.jpg';
@@ -97,18 +97,18 @@ export function ManufacturingPage() {
     <div className="industrial-page manufacturing-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(manufacturingSchema) }} />
       <header className="industrial-header">
-        <Link className="industrial-brand" href="/" aria-label="RV Cleanroom Systems home">
+        <a className="industrial-brand" href="/" aria-label="RV Cleanroom Systems home">
           <Image src="/wp-content/uploads/2018/07/Untitled-1.png" alt="RV Cleanroom Systems" width={92} height={50} />
           <span>RV Cleanroom Systems</span>
-        </Link>
+        </a>
         <nav aria-label="Main navigation">
-          <Link href="/">Home</Link>
-          <Link href="/about-us/">About Us</Link>
-          <Link href="/manufacturing/" aria-current="page">Manufacturing</Link>
-          <Link href="/products/">Products</Link>
-          <Link href="/services/">Services</Link>
-          <Link href="/cleanroom-project/">Projects</Link>
-          <Link className="industrial-header__cta" href="/contact/">Request a Quote</Link>
+          <a href="/">Home</a>
+          <a href="/about-us/">About Us</a>
+          <a href="/manufacturing/" aria-current="page">Manufacturing</a>
+          <a href="/products/">Products</a>
+          <a href="/services/">Services</a>
+          <a href="/cleanroom-project/">Projects</a>
+          <a className="industrial-header__cta" href="/contact/">Request a Quote</a>
         </nav>
       </header>
 
@@ -120,8 +120,8 @@ export function ManufacturingPage() {
               <h1>Cleanroom Panel Mass Production and Project Supply</h1>
               <p className="industrial-lead">RVCS is a cleanroom panel manufacturer with integrated production lines, standardized quality control and flexible scheduling for bulk engineering orders, repeat supply programs and OEM/ODM requirements.</p>
               <div className="industrial-actions">
-                <Link className="industrial-button" href="/contact/">Discuss Production Requirements</Link>
-                <Link className="industrial-text-link" href="/products/">View cleanroom products →</Link>
+                <a className="industrial-button" href="/contact/">Discuss Production Requirements</a>
+                <a className="industrial-text-link" href="/products/">View cleanroom products →</a>
               </div>
             </div>
             <Image src={factoryImage} alt="RVCS cleanroom panel manufacturing factory in China" width={1600} height={800} priority />
@@ -217,7 +217,7 @@ export function ManufacturingPage() {
               <p className="industrial-eyebrow">Factory-direct project supply</p>
               <h2>Send your panel schedule, drawings or cleanroom requirements</h2>
             </div>
-            <Link className="industrial-button" href="/contact/">Contact the Manufacturing Team</Link>
+            <a className="industrial-button" href="/contact/">Contact the Manufacturing Team</a>
           </div>
         </section>
       </main>
@@ -226,7 +226,7 @@ export function ManufacturingPage() {
         <div className="industrial-shell">
           <strong>RV-Cleanroom System Co., Ltd.</strong>
           <span>Cleanroom panel manufacturer and turnkey cleanroom supplier in China</span>
-          <Link href="mailto:sales@rvcleans.com">sales@rvcleans.com</Link>
+          <a href="mailto:sales@rvcleans.com">sales@rvcleans.com</a>
         </div>
       </footer>
     </div>
