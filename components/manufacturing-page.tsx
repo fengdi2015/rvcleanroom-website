@@ -102,10 +102,12 @@ export function ManufacturingPage() {
           <span>RV Cleanroom Systems</span>
         </Link>
         <nav aria-label="Main navigation">
+          <Link href="/">Home</Link>
           <Link href="/about-us/">About Us</Link>
           <Link href="/manufacturing/" aria-current="page">Manufacturing</Link>
           <Link href="/products/">Products</Link>
           <Link href="/services/">Services</Link>
+          <Link href="/cleanroom-project/">Projects</Link>
           <Link className="industrial-header__cta" href="/contact/">Request a Quote</Link>
         </nav>
       </header>

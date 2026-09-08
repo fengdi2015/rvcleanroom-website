@@ -36,6 +36,7 @@ export function IndustrialLandingPage({ solution }: { solution: IndustrialSoluti
           <span>RV Cleanroom Systems</span>
         </Link>
         <nav aria-label="Primary navigation">
+          <Link href="/">Home</Link>
           <Link href="/about-us/">About Us</Link>
           <Link href="/manufacturing/">Manufacturing</Link>
           <Link href="/services/">Services</Link>
