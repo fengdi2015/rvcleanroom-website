@@ -37,6 +37,7 @@ export function IndustrialLandingPage({ solution }: { solution: IndustrialSoluti
         </Link>
         <nav aria-label="Primary navigation">
           <Link href="/about-us/">About Us</Link>
+          <Link href="/manufacturing/">Manufacturing</Link>
           <Link href="/services/">Services</Link>
           <Link href="/products/">Products</Link>
           <Link href="/cleanroom-project/">Projects</Link>
