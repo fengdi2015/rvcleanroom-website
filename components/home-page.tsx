@@ -28,6 +28,7 @@ export function HomePage() {
   return <main className="rv-home">
     <section className="rv-home__hero">
       <div className="rv-home__shell rv-home__hero-grid">
+        <div className="rv-home__hero-kanji" aria-hidden="true"><span>精</span><span>工</span><small>PRECISION CRAFT</small></div>
         <div className="rv-home__hero-copy">
           <p className="rv-home__eyebrow"><span /> Cleanroom engineering · manufacturing · validation</p>
           <h1>Complete cleanroom systems, <em>built piece by piece.</em></h1>
@@ -35,12 +36,14 @@ export function HomePage() {
           <div className="rv-home__actions"><a className="rv-home__button rv-home__button--primary" href="/contact/">Start Your Project <ArrowRight size={17} /></a><a className="rv-home__button rv-home__button--ghost" href="/manufacturing/">See Manufacturing</a></div>
         </div>
         <div className="rv-home__hero-visual" aria-label="RVCS cleanroom project and modular manufacturing">
+          <div className="rv-home__hero-orbit" aria-hidden="true" />
           <div className="rv-home__flight-lines" aria-hidden="true"><i /><i /><i /><i /><i /></div>
           <div className="rv-home__hero-image"><Image src="/wp-content/uploads/2026/09/rvcs-suzhou-cleanroom-factory.jpeg" alt="RVCS cleanroom manufacturing factory in Suzhou, China" fill priority sizes="(max-width: 900px) 100vw, 52vw" /></div>
           <div className="rv-home__hero-stamp"><strong>RVCS</strong><span>Reliable · Validated<br />Cleanroom Systems</span></div>
           <div className="rv-home__hero-caption"><span>01 / 04</span><strong>From manufactured component<br />to controlled environment</strong></div>
         </div>
       </div>
+      <div className="rv-home__hero-flow" aria-hidden="true"><i /><i /><i /></div>
       <div className="rv-home__shell"><dl className="rv-home__proof"><div><dt>1999</dt><dd>Established</dd></div><div><dt>Shanghai</dt><dd>Project office</dd></div><div><dt>Suzhou</dt><dd>Manufacturing factory</dd></div><div><dt>Worldwide</dt><dd>Project delivery</dd></div></dl></div>
     </section>
 
