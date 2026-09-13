@@ -28,7 +28,7 @@ export function HomePage() {
   return <main className="rv-home">
     <section className="rv-home__hero">
       <div className="rv-home__shell rv-home__hero-grid">
-        <div className="rv-home__hero-kanji" aria-hidden="true"><span>精</span><span>工</span><small>PRECISION CRAFT</small></div>
+        <div className="rv-home__hero-kanji" aria-hidden="true"><span>精</span><span>卫</span><small>JINGWEI MOTIF</small></div>
         <div className="rv-home__hero-copy">
           <p className="rv-home__eyebrow"><span /> Cleanroom engineering · manufacturing · validation</p>
           <h1>Complete cleanroom systems, <em>built piece by piece.</em></h1>
