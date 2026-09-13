@@ -608,9 +608,9 @@ body { margin: 0; min-width: 320px; background: var(--background); }
 }
 
 /* Poster refinement based on the supplied Jingwei reference. */
-.rv-home__hero { position: relative; isolation: isolate; padding-top: 0; color: #fff; background: #101d3b; }
-.rv-home__hero::before { position: absolute; inset: 0; z-index: -2; background: radial-gradient(circle at 72% 42%, rgb(210 109 82 / 24%), transparent 27%), radial-gradient(circle at 64% 34%, rgb(61 147 174 / 16%), transparent 24%), linear-gradient(145deg, #101d3b 0%, #172344 56%, #0b1731 100%); content: ''; }
-.rv-home__hero::after { inset: 0; z-index: -1; background-image: radial-gradient(rgb(255 255 255 / 15%) 1px, transparent 1px); background-size: 32px 32px; opacity: .32; mask-image: linear-gradient(to bottom, #000, transparent 82%); }
+.rv-home__hero { position: relative; isolation: isolate; padding-top: 0; color: #fff; background: #101427; }
+.rv-home__hero::before { position: absolute; inset: 0; z-index: -2; background: radial-gradient(ellipse at 72% 33%, rgb(141 140 165 / 38%), transparent 24%), radial-gradient(ellipse at 61% 22%, rgb(56 78 121 / 64%), transparent 34%), radial-gradient(circle at 18% 74%, rgb(35 56 97 / 72%), transparent 42%), linear-gradient(145deg, #101427 0%, #1c2747 46%, #233861 72%, #101427 100%); content: ''; }
+.rv-home__hero::after { inset: 0; z-index: -1; background-image: radial-gradient(rgb(183 181 193 / 24%) 1px, transparent 1px), radial-gradient(rgb(110 115 147 / 18%) 1px, transparent 1px); background-position: 0 0, 17px 13px; background-size: 31px 31px, 47px 47px; opacity: .5; mask-image: linear-gradient(to bottom, #000, transparent 88%); }
 .rv-home__hero-grid { grid-template-columns: 94px minmax(0, .82fr) minmax(0, 1.18fr); min-height: 680px; gap: 34px; }
 .rv-home__hero-copy { position: relative; z-index: 4; min-width: 0; padding: 70px 0 110px; }
 .rv-home__hero .rv-home__eyebrow { color: #f2d7b2; }
